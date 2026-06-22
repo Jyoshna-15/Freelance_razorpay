@@ -1,7 +1,7 @@
 const express = require('express');
 const Razorpay = require('razorpay');
 const crypto = require('crypto');
-const Invoice = require('../models/Invoice');
+const Invoice = require('../models/invoice');
 const auth = require('../middleware/auth');
 const router = express.Router();
 

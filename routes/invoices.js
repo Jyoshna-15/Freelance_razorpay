@@ -1,5 +1,5 @@
 const express = require('express');
-const Invoice = require('../models/Invoice');
+const Invoice = require('../models/invoice');
 const auth = require('../middleware/auth');
 const router = express.Router();
 
