@@ -11,6 +11,28 @@ const razorpay = new Razorpay({
 });
 
 // Create order
+// router.post('/create-order', auth, async (req, res) => {
+//   try {
+//     const { invoiceId } = req.body;
+//     const invoice = await Invoice.findById(invoiceId);
+//     if (!invoice) return res.status(404).json({ message: 'Invoice not found' });
+
+//     const order = await razorpay.orders.create({
+//       amount: invoice.totalAmount * 100,
+//       currency: 'INR',
+//       receipt: invoice.invoiceNumber,
+//     });
+
+//     invoice.razorpayOrderId = order.id;
+//     await invoice.save();
+
+//     res.json({ success: true, order });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
+
+
 router.post('/create-order', auth, async (req, res) => {
   try {
     const { invoiceId } = req.body;
@@ -28,10 +50,10 @@ router.post('/create-order', auth, async (req, res) => {
 
     res.json({ success: true, order });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.log('PAYMENT ERROR:', error.message); // ← add this
+    res.status(500).json({ message: error.message }); // ← fix this too
   }
 });
-
 // Verify payment
 router.post('/verify', auth, async (req, res) => {
   try {
