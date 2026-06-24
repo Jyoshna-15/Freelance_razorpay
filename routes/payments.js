@@ -50,9 +50,17 @@ router.post('/create-order', auth, async (req, res) => {
 
     res.json({ success: true, order });
   } catch (error) {
-    console.log('PAYMENT ERROR:', error.message); // ← add this
-    res.status(500).json({ message: error.message }); // ← fix this too
-  }
+  console.log('ERROR TYPE:', typeof error);
+  console.log('ERROR KEYS:', Object.keys(error));
+  console.log('ERROR STRINGIFIED:', JSON.stringify(error));
+  console.log('ERROR MESSAGE:', error.message);
+  console.log('ERROR DESCRIPTION:', error?.error?.description);
+  console.log('STATUS CODE:', error?.statusCode);
+  
+  res.status(500).json({ 
+    message: error?.error?.description || error.message || 'Something went wrong'
+  });
+}
 });
 // Verify payment
 router.post('/verify', auth, async (req, res) => {
